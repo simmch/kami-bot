@@ -1,8 +1,8 @@
-const Villain = require("../models/villain")
+const World = require("../models/worlds");
 
 const read = async (params) => {
     try {
-        const response = await Villain.findOne(params);
+        const response = await World.findOne(params);
         if(response) return response
         if(!response) return false
     }
@@ -16,7 +16,7 @@ const read = async (params) => {
 
 const readAll = async () => {
     try {
-        const response = await Villain.find();
+        const response = await World.find();
         if(response) return response
         if(!response) return false
     }
@@ -28,10 +28,10 @@ const readAll = async () => {
     }
 }
 
-const create = async (new_record) => {
+const create = async (new_record) => {worlds.js
     try {
-        const villain = new Villain(new_record);
-        const response = await villain.save();
+        const World = new World(new_record);
+        const response = await World.save();
         if(response) return true
         if(!response) return false
     }
@@ -46,7 +46,7 @@ const create = async (new_record) => {
 
 const update = async (record, updated_field) => {
     try {
-        const response = await Villain.updateOne(record, updated_field)
+        const response = await World.updateOne(record, updated_field)
         if(response) return true
         if(!response) return false
     }
@@ -60,8 +60,5 @@ const update = async (record, updated_field) => {
 }
 
 module.exports = {
-    read,
-    readAll,
-    create,
-    update
+    world_api: read,readAll,create,update
 }
