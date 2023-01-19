@@ -1,0 +1,3 @@
+module.exports = {
+    register_intro: `The elder god Kami has fallen and calamity is upon the worlds unknown. You and others were teleported into these worlds as a Specter in hopes of using your innate power to clash against evil and unjust specters, building your power to fufill the prophecy of finding the next Kami.\nSinister Gods have attempted to taint other worlds to throw Specters off course, causing some remnant zones to be greatly altered with mysterious evils. Defeat the enemies in these zones, including other Specters, to rise to the top and take your rightful crown as the new Kami!`,
+}
