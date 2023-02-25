@@ -1,16 +1,16 @@
 class Scenario {
     constructor(scenario_code, title, image, required_level, required_rank, enemy_level, enemies, drops, world, zone, available){
-        this.SCENARIO_CODE = scenario_code
-        this.TITLE = title
-        this.IMAGE = image
-        this.REQUIRED_LEVEL = required_level
-        this.REQUIRED_RANK = required_rank
-        this.ENEMY_LEVEL = enemy_level
-        this.ENEMIES = enemies
-        this.DROPS = drops
-        this.WORLD = world
-        this.ZONE = zone
-        this.AVAILABLE = available
+        this.scenario_code = scenario_code
+        this.title = title
+        this.image = image
+        this.required_level = required_level
+        this.required_rank = required_rank
+        this.enemy_level = enemy_level
+        this.enemies = enemies
+        this.drops = drops
+        this.world = world
+        this.zone = zone
+        this.available = available
     }
 }
 

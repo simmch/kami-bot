@@ -1,8 +1,8 @@
-const Specter = require("../models/specters");
+const Card = require("../models/cards");
 
 const read = async (params) => {
     try {
-        const response = await Specter.findOne(params);
+        const response = await Card.findOne(params);
         if(response) return response
         if(!response) return false
     }
@@ -16,21 +16,7 @@ const read = async (params) => {
 
 const readAll = async () => {
     try {
-        const response = await Specter.find();
-        if(response) return response
-        if(!response) return false
-    }
-    catch (err) {
-        if(err){
-            console.error(err)
-            return false
-        }
-    }
-}
-
-const readAllByQuery = async (query) => {
-    try {
-        const response = await Specter.find(query);
+        const response = await Card.find();
         if(response) return response
         if(!response) return false
     }
@@ -44,8 +30,8 @@ const readAllByQuery = async (query) => {
 
 const create = async (new_record) => {Ranks.js
     try {
-        const Specter = new Specter(new_record);
-        const response = await Specter.save();
+        const Card = new Card(new_record);
+        const response = await Card.save();
         if(response) return true
         if(!response) return false
     }
@@ -60,7 +46,7 @@ const create = async (new_record) => {Ranks.js
 
 const update = async (record, updated_field) => {
     try {
-        const response = await Specter.updateOne(record, updated_field)
+        const response = await Card.updateOne(record, updated_field)
         if(response) return true
         if(!response) return false
     }
@@ -75,8 +61,7 @@ const update = async (record, updated_field) => {
 
 const updateAll = async (record, updated_field) => {
     try {
-        const response = await Specter.updateMany(record, updated_field)
-        console.log(response)
+        const response = await Card.updateMany(record, updated_field)
         if(response) return true
         if(!response) return false
     }
@@ -94,6 +79,5 @@ module.exports = {
     readAll,
     create,
     update,
-    updateAll,
-    readAllByQuery
+    updateAll
 }
