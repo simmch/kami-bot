@@ -1,13 +1,10 @@
 const { SlashCommandBuilder } = require("@discordjs/builders")
 const Pagination = require("customizable-discordjs-pagination")
-const { PermissionFlagsBits, ButtonBuilder, ButtonStyle, Events } = require("discord.js")
-const { EmbedBuilder, ActionRowBuilder, ComponentType } = require("discord.js")
+const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, SelectMenuBuilder } = require("discord.js")
 const { messages } = require("../utilities/index")
 const { specter_api } = require("../service/api/index")
-const { world_descriptions } = require("../utilities/world_common.js")
-
-const { pagination, ButtonTypes, ButtonStyles } = require('@devraelfreeze/discordjs-pagination');
-
+const { world_short_descriptions } = require("../utilities/world_common.js")
+const { getRow, getSelectRow } = require("../utilities/pagination.js")
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -50,7 +47,6 @@ module.exports = {
             const age = interaction.options.getString("age")
             const specters = await specter_api.readAllByQuery({"AGE_GROUP": age, "GENDER": gender})
             const listOfEmbeds = []
-            const pages = {}
 
             for (let specter of specters) {
                 const world = specter.WORLD;
@@ -65,7 +61,7 @@ module.exports = {
                         { name: "Age", value: `${specter.AGE.toString()}` },
                         { name: "World", value: `${specter.WORLD}` },
                         { name: "Race", value: `${specter.RACE}` },
-                        { name: "World Description", value: `${world_descriptions[capitalizedWorld]}` }
+                        { name: "Home World Description", value: `${world_short_descriptions[capitalizedWorld]}` }
                     )
                     .setImage(specter.IMAGE)
                     .setFooter({text: `Page: ${listOfEmbeds.length + 1}/${specters.length}`})
@@ -73,79 +69,57 @@ module.exports = {
                 listOfEmbeds.push(embed)
             }
 
-            const getRow = (id) => {
-                const row = new ActionRowBuilder()
-
-                row.addComponents(
-                    new ButtonBuilder()
-                        .setCustomId('prev_embed')
-                        .setStyle('Primary')
-                        .setEmoji('◀️')
-                        .setDisabled(pages[id] === 0)
-                )
-
-                row.addComponents(
-                    new ButtonBuilder()
-                        .setCustomId('user_option')
-                        .setStyle('Secondary')
-                        .setEmoji('✅')
-                )
-
-                row.addComponents(
-                    new ButtonBuilder()
-                        .setCustomId('next_embed')
-                        .setStyle('Secondary')
-                        .setEmoji('▶️')
-                        .setDisabled(pages[id] === listOfEmbeds.length - 1)
-                )
-                return row
-            }
-
-            pages[id] = pages[id] || 0
-            const embed = listOfEmbeds[pages[id]]
+            let pageIndex = 0;
 
             interaction.reply({
-                ephemeral: true,
-                embeds: [embed],
-                components: [getRow(id)]
-            })
-
-            const collector = interaction.channel.createMessageComponentCollector({ time: 150000 })
-
-            collector.on('collect', btnInt => {
-                if (!btnInt) {
-                    return
-                }
-                btnInt.deferUpdate()
-
-                if (btnInt.customId !== 'prev_embed' && btnInt.customId !== 'next_embed' && btnInt.customId !== 'user_option'){
-                    return
-                }
-
-                console.log(btnInt.customId)
-
-                if (btnInt.customId === 'user_option') {
-                    console.log('-------------------------------------------------')
-                    const { fields } = listOfEmbeds[pages[id]].data
-                    console.log(fields)
-                    console.log('-------------------------------------------------')
-
-                }
-                else if (btnInt.customId === 'prev_embed' && pages[id] > 0) {
-                    --pages[id]
-                }
-                else if (btnInt.customId === 'next_embed' && pages[id] < listOfEmbeds.length - 1) {
-                    ++pages[id]
-                }
-
-                interaction.editReply({
-                    embeds: [listOfEmbeds[pages[id]]],
-                    components: [getRow(id)]
-                })
+              ephemeral: true,
+              embeds: [listOfEmbeds[pageIndex]],
+              components: [getSelectRow(pageIndex, listOfEmbeds), getRow(pageIndex, listOfEmbeds)]
             });
+            
+            const collector = interaction.channel.createMessageComponentCollector({ time: 150000 });
+            
+            collector.on('collect', btnInt => {
+              if (!btnInt) {
+                return;
+              }
+              btnInt.deferUpdate();
+            
+              if (btnInt.customId !== 'prev_embed' && btnInt.customId !== 'next_embed' && btnInt.customId !== 'user_option' && btnInt.customId !== 'quit' && btnInt.customId !== 'select_menu') {
+                return;
+              }
+            
+              if (btnInt.customId === 'user_option') {
+                console.log('-------------------------------------------------');
+                const { fields } = listOfEmbeds[pageIndex].data;
+                console.log(fields);
+                console.log('-------------------------------------------------');
+              } else if (btnInt.customId === 'prev_embed' && pageIndex > 0) {
+                pageIndex--;
+              } else if (btnInt.customId === 'next_embed' && pageIndex < listOfEmbeds.length - 1) {
+                pageIndex++;
+              } else if (btnInt.customId === 'quit') {
+                interaction.editReply({
+                  embeds: [listOfEmbeds[pageIndex]],
+                  components: []
+                });
+                collector.stop();
+                return;
+              } else if (btnInt.customId === 'select_menu') {
+                const { values } = btnInt;
+                pageIndex = parseInt(values[0]);
+                }
 
+
+            
+              interaction.editReply({
+                embeds: [listOfEmbeds[pageIndex]],
+                components: [getSelectRow(pageIndex, listOfEmbeds), getRow(pageIndex, listOfEmbeds)]
+              });
+            });
+            
             collector.on('end', collected => {
-                console.log(`Collected ${collected.size} items`);
+              console.log(`Collected ${collected.size} items`);
             });
 
         } catch (err) {
