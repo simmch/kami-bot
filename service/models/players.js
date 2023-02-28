@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const PlayerSchema = new mongoose.Schema({
-    DISNAME: {
+    DID: {
         type: String,
         required: false
     },
@@ -9,20 +9,16 @@ const PlayerSchema = new mongoose.Schema({
         type: String,
         required: false
     },
-    DID: {
-        type: String,
-        required: false
-    },
-    CURRENT_WORLD: {
-        type: String,
-        required: false
-    },
-    CURRENT_ZONE: {
-        type: String,
-        required: false
-    },
     SPECTER: {
-        type: Array,
+        type: Object,
+        required: false
+    },
+    LVL: {
+        type: Number,
+        required: false
+    },
+    XP: {
+        type: Number,
         required: false
     },
     CARDS: {
@@ -33,10 +29,6 @@ const PlayerSchema = new mongoose.Schema({
         type: String,
         required: false
     },
-    RANKS: {
-        type: Array,
-        required: false
-    },
     GUILD: {
         type: String,
         required: false
@@ -45,11 +37,15 @@ const PlayerSchema = new mongoose.Schema({
         type: Array,
         required: false
     },
+    OWNED_RANKS: {
+        type: Array,
+        required: false
+    },
     OWNED_CARDS: {
         type: Array,
         required: false
     },
-    COMPLETED_QUESTS: {
+    QUESTS: {
         type: Array,
         required: false
     },
@@ -61,11 +57,32 @@ const PlayerSchema = new mongoose.Schema({
         type: Array,
         required: false
     },
+    CURRENT_WORLD: {
+        type: String,
+        required: false
+    },
+    CURRENT_ZONE: {
+        type: String,
+        required: false
+    },
+    BALANCE: {
+        type: Object,
+        required: false
+    },
+    MISCELLANEOUS: {    // This is for things like the player's current quest, etc.
+        type: Array,
+        required: false
+    },
     IS_ADMIN: {
         type: Boolean,
         required: false,
         default: false
     },
+    TIMESTAMP: {
+        type: Date,
+        required: false,
+        default: Date.now
+    }
 });
 
 const collection = "players"

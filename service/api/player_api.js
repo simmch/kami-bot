@@ -28,10 +28,10 @@ const readAll = async () => {
     }
 }
 
-const create = async (new_record) => {Ranks.js
+const create = async (new_record) => {
     try {
-        const Player = new Player(new_record);
-        const response = await Player.save();
+        const player = new Player(new_record);
+        const response = await player.save();
         if(response) return true
         if(!response) return false
     }
@@ -60,5 +60,8 @@ const update = async (record, updated_field) => {
 }
 
 module.exports = {
-    player_api: read,readAll,create,update
+    read,
+    readAll,
+    create,
+    update
 }
