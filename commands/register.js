@@ -1,10 +1,8 @@
 const { SlashCommandBuilder } = require("@discordjs/builders")
-const Pagination = require("customizable-discordjs-pagination")
-const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, SelectMenuBuilder } = require("discord.js")
+const { EmbedBuilder } = require("discord.js")
 const { messages } = require("../utilities/index")
 const { specter_api } = require("../service/api/index")
 const { world_short_descriptions } = require("../utilities/world_common.js")
-const { overarching_story, lore } = require("../utilities/story_common.js")
 const { getRow, getSelectRow } = require("../utilities/pagination.js")
 const Player = require("../service/models/players.js")
 const player_api = require("../service/api/player_api")
@@ -43,7 +41,7 @@ module.exports = {
                 )
         ),
     async execute(interaction) {
-        try {
+        try {            
             const id = interaction.user.id
             const name = interaction.options.getString("name")
             const gender = interaction.options.getString("type")
@@ -167,4 +165,4 @@ module.exports = {
             return
         }
     }
-}
+  }

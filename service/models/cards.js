@@ -53,14 +53,6 @@ const CardSchema = new mongoose.Schema({
         type: Number,
         required: false
     },
-    ACCURACY: {
-        type: Number,
-        required: false
-    },
-    EVASION: {
-        type: Number,
-        required: false
-    },
     RANK: {
         type: String,
         required: false
@@ -75,6 +67,38 @@ const CardSchema = new mongoose.Schema({
     },
     AVAILABLE: {
         type: Boolean,
+        required: false
+    },
+    MOVES: {
+        type: Array,
+        required: false
+    },
+    QUEST: {
+        type: Array,
+        required: false
+    },
+    ZONES: {
+        type: Array,
+        required: false
+    },
+    WEAKNESS: {
+        type: Array,
+        required: false
+    },
+    RESISTANT: {
+        type: Array,
+        required: false
+    },
+    REPEL: {
+        type: Array,
+        required: false
+    },
+    IMMUNE: {
+        type: Array,
+        required: false
+    },
+    ABSORB: {
+        type: Array,
         required: false
     },
     TIMESTAMP: {

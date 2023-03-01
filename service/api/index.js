@@ -7,11 +7,7 @@ const specter_api = require("./specter_api")
 const card_api = require("./card_api")
 
 module.exports = {
-    match_analytics_api,
     player_api,
-    rank_api,
-    scenario_api,
-    world_api,
     specter_api,
     card_api
 }

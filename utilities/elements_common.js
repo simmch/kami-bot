@@ -27,3 +27,25 @@ const elements = [
     "Gravity",
     "Status Effect"
 ]
+
+const element_emojis = {
+    "Fire": "🔥",
+    "Water": "💧",
+    "Earth": "🌎",
+    "Wind": "🌬️",
+    "Lightning": "⚡",
+    "Ice": "❄️",
+    "Light": "☀️",
+    "Dark": "🌑",
+    "Poison": "🧪",
+    "Blood": "🩸",
+    "Siphon": "🧛",
+    "Death": "☠️",
+    "Ranged": "🏹",
+    "Melee": "⚔️",
+    "Spirit": "👻",
+    "Psychic": "🔮",
+    "Time": "⏳",
+    "Gravity": "🌌",
+    "Status Effect": "🦠"
+}
