@@ -4,6 +4,7 @@ const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, SelectMenuBuilder } = req
 const { messages } = require("../utilities/index")
 const { specter_api } = require("../service/api/index")
 const { world_short_descriptions } = require("../utilities/world_common.js")
+const { overarching_story, lore } = require("../utilities/story_common.js")
 const { getRow, getSelectRow } = require("../utilities/pagination.js")
 const Player = require("../service/models/players.js")
 const player_api = require("../service/api/player_api")
@@ -97,6 +98,12 @@ module.exports = {
               }
             
               if (btnInt.customId === 'user_option') {
+                const embed = new EmbedBuilder()
+                    .setTitle(`🎇 Welcome to Kami Bot!`)
+                    .setDescription(`Placeholder`)
+                    .setFooter({ text: `You can change your name and character later in the game if you so choose.`})
+                    .setTimestamp()
+
                 new_player = new Player({
                     DID: id,
                     NAME: name,
@@ -121,8 +128,7 @@ module.exports = {
                 })
                 player_api.create(new_player)
                 interaction.editReply({
-                    content: "You have successfully registered!",
-                    embeds: [],
+                    embeds: [embed],
                     components: []
                 });
                 return

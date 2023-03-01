@@ -12,3 +12,8 @@ const lore = {
     "why_anime_worlds_exist_long_description": `The God of Creation found it to be an enjoyable pastime to spread the concepts of other worlds as ideas in the minds of individuals scattered throughout the universe. In doing so, the God of Creation hoped to inspire creativity and ingenuity among the mortals, leading them to achieve great feats of strength and courage. The specters, being chosen by the God of Creation, are imbued with the knowledge of these other worlds, which they have acquired through books, manga, and anime. This familiarity with other worlds is an asset in their quest to become the next Kami, as they are able to navigate through these worlds with greater ease and connect with the protagonists of these stories more effectively. The God of Creation's legacy lives on in the specters, who continue to explore and draw inspiration from the diverse range of worlds that the God of Creation has shared with them.`,
     "why_anime_worlds_exist_short_description": `The God of Creation spread the concepts of other worlds as ideas in the minds of mortals scattered throughout the universe. The specters were chosen by the God of Creation and are imbued with the knowledge of these other worlds, acquired through books, manga, and anime. This familiarity with other worlds aids them in their quest to become the next Kami and connect with the protagonists of these stories.`
 }
+
+module.exports = {
+    overarching_story,
+    lore
+}
