@@ -1,3 +1,5 @@
+const Rank = require("../service/models/ranks");
+
 /**
  * Rank Buffs
  * @type {string[]}
@@ -35,3 +37,18 @@ const rank_buffs = [
     "ELEMENTAL BOOST", // Increases Specific Elemental Damage
 ]
 
+async function getRankTextForCard(code) {
+    const rank = await Rank.findOne({ RANK_CODE: code });
+    if (!rank) return "Unknown";
+  
+    const percentProperties = ['ATTACK', 'DEFENSE', 'HEAL', 'LIFESTEAL', 'FEAR', 'GROWTH', 'CREATION', 'DESTRUCTION', 'ATTACK STEAL', 'DEFENSE STEAL'];
+    const numberProperties = ['STAMINA', 'SHIELD', 'BARRIER', 'PARRY', 'SPELL SHIELD', 'ELEMENTAL BOOST'];
+    const suffix = percentProperties.includes(rank.BUFF.TYPE) ? '%' : '';
+    const rankBuffType = rank.BUFF.TYPE.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
+  
+    return `${rank.TITLE} - ${rankBuffType} ${rank.BUFF.POWER}${suffix}`;
+  }
+
+module.exports = {
+    getRankTextForCard
+}

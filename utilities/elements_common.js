@@ -16,7 +16,7 @@ const elements = [
     "Light",
     "Dark",
     "Poison",
-    "Blood",
+    "BLEED",
     "Siphon",
     "Death",
     "Ranged",
@@ -29,23 +29,35 @@ const elements = [
 ]
 
 const element_emojis = {
-    "Fire": "🔥",
-    "Water": "💧",
-    "Earth": "🌎",
-    "Wind": "🌬️",
-    "Lightning": "⚡",
-    "Ice": "❄️",
-    "Light": "☀️",
-    "Dark": "🌑",
-    "Poison": "🧪",
-    "Blood": "🩸",
-    "Siphon": "🧛",
-    "Death": "☠️",
-    "Ranged": "🏹",
-    "Melee": "⚔️",
-    "Spirit": "👻",
-    "Psychic": "🔮",
-    "Time": "⏳",
-    "Gravity": "🌌",
+    "FIRE": "🔥",
+    "WATER": "💧",
+    "EARTH": "⛰️",
+    "WIND": "🌬️",
+    "LIGHTNING": "⚡",
+    "ICE": "❄️",
+    "LIGHT": "☀️",
+    "DARK": "🌑",
+    "POISON": "🧪",
+    "BLEED": "🩸",
+    "SIPHON": "❤️‍🔥",
+    "DEATH": "☠️",
+    "RANGED": "🏹",
+    "PHYSICAL": "👊",
+    "SPIRIT": "💙",
+    "PSYCHIC": "🔮",
+    "TIME": "⏳",
+    "GRAVITY": "🌌",
     "Status Effect": "🦠"
+}
+
+function getEmoji(element) {
+    let emoji = element_emojis[element] || element_emojis["Status Effect"];
+    if(!element){
+        emoji = ""
+    }
+    return  emoji
+  }
+
+module.exports = {
+    getEmoji
 }

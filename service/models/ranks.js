@@ -17,10 +17,6 @@ const RankSchema = new mongoose.Schema({
         type: Object,
         required: false
     },
-    TIMESTAMP: {
-        type: Date,
-        default: Date.now
-    },
     REQUIRED_MORALITY: {
         type: Number,
         required: false
@@ -33,8 +29,12 @@ const RankSchema = new mongoose.Schema({
         type: Object,
         required: false
     },
+    TIMESTAMP: {
+        type: Date,
+        default: Date.now
+    },
 });
 
 const collection = "ranks"
 
-module.exports = Rank = mongoose.model("rank", RankSchema, collection);
+module.exports = Rank = mongoose.model("ranks", RankSchema, collection);
